@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  title: MyString
+  lection_id: 1
+  body: MyString
+  serial_number: 1
+
+two:
+  type: 
+  title: MyString
+  lection_id: 1
+  body: MyString
+  serial_number: 1
