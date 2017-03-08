@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Курсы
+___
 
-Things you may want to cover:
 
-* Ruby version
+#### Список курсов
 
-* System dependencies
+```
+GET /courses.json
+```
 
-* Configuration
+#### Информация о курсе
 
-* Database creation
+```
+GET /courses/1.json
+```
 
-* Database initialization
+#### Создание курса
 
-* How to run the test suite
+```
+POST /courses.json
+{
+    "course":{
+        "title": "Вводный курс в Phoenix",
+        "description": "Сделаем простой hello-world проект",
+        "owner_id": 1, <- user_id
+        "avatar": <- multipart data
+    }
+}
 
-* Services (job queues, cache servers, search engines, etc.)
+```
 
-* Deployment instructions
-
-* ...
