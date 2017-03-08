@@ -25,7 +25,7 @@ POST /courses.json
         "title": "Вводный курс в Phoenix",
         "description": "Сделаем простой hello-world проект",
         "owner_id": 1, <- user_id
-        "avatar": <- multipart data
+        "avatar": <- multipart data; optional
     }
 }
 
