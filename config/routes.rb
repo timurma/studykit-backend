@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :courses, only: %i(index)
+  scope :api do
+    resources :courses, only: %i(index create)
+  end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 end
