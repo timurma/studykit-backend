@@ -11,6 +11,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'rails_admin', '1.1.0'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -31,6 +32,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
