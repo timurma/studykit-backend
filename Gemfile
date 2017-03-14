@@ -3,15 +3,15 @@ source 'https://rubygems.org'
 ruby '2.3.3'
 
 gem 'rails', '~> 5.0.2'
-gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.0'
+gem 'pg', '~> 0.20'
+gem 'puma', '~> 3.8'
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'carrierwave', '~> 1.0'
 gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
+gem 'rack-cors', '~> 0.4'
 gem 'rails_admin', '1.1.0'
-gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', platform: :mri
