@@ -6,14 +6,16 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    if original_filename.present? && @filename.eql?(original_filename)
-      @filename = "#{SecureRandom.uuid}.#{file.extension.downcase}"
-    end
-
-    @filename
+    "#{uuid}.#{file.extension}" if original_filename.present?
   end
 
   def extension_whitelist
     %w(jpg jpeg png)
+  end
+
+  protected
+
+  def uuid
+    @uuid ||= SecureRandom.uuid
   end
 end
