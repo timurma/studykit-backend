@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   scope :api do
+    resources :users, only: %i(create)
     resources :courses, only: %i(index show create) do
       resources :lectures, only: %i(index)
     end
