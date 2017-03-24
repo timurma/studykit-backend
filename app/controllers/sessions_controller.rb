@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
     if user
       token = user.issue_token
-      render json: { auth_token: token }
+      render json: user, jwt_token: token
     else
       render json: { errors: 'Invalid credentials' }, status: :not_found
     end
