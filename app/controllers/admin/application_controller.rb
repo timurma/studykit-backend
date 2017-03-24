@@ -1,3 +1,3 @@
 class Admin::ApplicationController < ApplicationController
-  # before_action :auth
+  before_action :reject_non_admins!
 end
