@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :email, :avatar, :jwt_token
+  attributes :id, :first_name, :last_name, :email, :avatar, :role, :jwt_token
 
   def jwt_token
     instance_options[:jwt_token]
