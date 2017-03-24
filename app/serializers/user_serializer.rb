@@ -4,4 +4,8 @@ class UserSerializer < ActiveModel::Serializer
   def jwt_token
     instance_options[:jwt_token]
   end
+
+  def avatar
+    "#{instance_options[:host]}#{object.avatar.url}" if object.avatar?
+  end
 end

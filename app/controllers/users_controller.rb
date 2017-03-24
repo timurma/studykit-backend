@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     user = User.new user_params
 
     if user.save
-      render json: user, status: :created
+      render json: user, status: :created, host: request.base_url
     else
       render json: { errors: user.errors }, status: :unprocessable_entity
     end
