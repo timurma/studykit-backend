@@ -1,8 +1,11 @@
 class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
-  validates_presence_of :first_name, :last_name, :email, :password_digest
+  enum role: [:student, :admin, :teacher]
+
+  validates_presence_of :first_name, :last_name, :email, :password_digest, :role
   validates_uniqueness_of :email, case_sensitive: false
+  validates_inclusion_of :role, in: roles.keys
 
   def self.find_by_email_password(email, password)
     user = where('LOWER(email) = ?', email.downcase).first
