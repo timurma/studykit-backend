@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+  before_action :authenticate_with_token!, only: [:create]
+
   def index
     render json: Course.order(updated_at: :desc)
   end
