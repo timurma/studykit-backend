@@ -10,13 +10,11 @@ class User < ApplicationRecord
   end
 
   def self.find_by_token(token)
-    begin
-      decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
-      payload = decoded_token.first
-      User.find_by(id: payload['user_id'])
-    rescue JWT::ExpiredSignature, JWT::DecodeError
-      nil
-    end
+    decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
+    payload = decoded_token.first
+    User.find_by(id: payload['user_id'])
+  rescue JWT::ExpiredSignature, JWT::DecodeError
+    nil
   end
 
   def password
