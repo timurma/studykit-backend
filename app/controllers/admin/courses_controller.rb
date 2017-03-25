@@ -1,5 +1,5 @@
 class Admin::CoursesController < Admin::ApplicationController
-  before_action :set_course, only: [:show, :update]
+  before_action :set_course, only: %i(show update destroy)
 
   def index
     render json: Course.order(updated_at: :desc), host: request.base_url
@@ -25,6 +25,11 @@ class Admin::CoursesController < Admin::ApplicationController
     else
       render json: { errors: @course.errors }, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @course.destroy
+    head :no_content
   end
 
   private
