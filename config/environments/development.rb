@@ -26,6 +26,11 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # User memory_store for sprockets cache
+  config.assets.configure do |env|
+    env.cache = ActiveSupport::Cache.lookup_store(:memory_store)
+  end
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
