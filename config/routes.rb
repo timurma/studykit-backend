@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
     post 'users/login', to: 'sessions#create'
     resources :courses, only: %i(index show) do
-      resources :lectures
+      resources :lectures do
+        resources :lectures_content, only: %i(create update destroy)
+      end
     end
   end
 
