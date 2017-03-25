@@ -1,7 +1,7 @@
 class LecturesController < ApplicationController
   before_action :set_course
   before_action :set_lecture, only: %i(show update destroy)
-  before_action :authenticate_with_token!, only: [:create]
+  before_action :authenticate_with_token!, only: %i(create update destroy)
 
   def index
     render json: @course.lectures.order(:serial_number)
@@ -25,7 +25,7 @@ class LecturesController < ApplicationController
   def update
     authorize!(:update, @lecture)
 
-    if @lecture.update(lecture_update_params)
+    if @lecture.update(lecture_params)
       render json: @lecture
     else
       render json: { errors: @lecture.errors }, status: :unprocessable_entity
@@ -49,10 +49,6 @@ class LecturesController < ApplicationController
   end
 
   def lecture_params
-    params.require(:lecture).permit(:title, :course_id, :serial_number)
-  end
-
-  def lecture_update_params
     params.require(:lecture).permit(:title, :serial_number)
   end
 end
