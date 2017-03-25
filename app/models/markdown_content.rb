@@ -1,0 +1,2 @@
+class MarkdownContent < LectureContent
+end
