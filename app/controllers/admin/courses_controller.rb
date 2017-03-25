@@ -1,5 +1,5 @@
 class Admin::CoursesController < Admin::ApplicationController
-  before_action :set_course, only: [:show]
+  before_action :set_course, only: [:show, :update]
 
   def index
     render json: Course.order(updated_at: :desc), host: request.base_url
@@ -16,6 +16,14 @@ class Admin::CoursesController < Admin::ApplicationController
       render json: course, status: :created, host: request.base_url
     else
       render json: { errors: course.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @course.update(course_params)
+      render json: @course, host: request.base_url
+    else
+      render json: { errors: @course.errors }, status: :unprocessable_entity
     end
   end
 
