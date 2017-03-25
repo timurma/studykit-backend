@@ -1,2 +1,2 @@
-class Markdown < Lecture::Content
+class Lecture::Markdown < Lecture::Content
 end
