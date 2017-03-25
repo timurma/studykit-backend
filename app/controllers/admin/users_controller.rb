@@ -1,4 +1,8 @@
 class Admin::UsersController < Admin::ApplicationController
+  def index
+    render json: User.order(updated_at: :desc)
+  end
+
   def create
     user = User.new user_params
 
