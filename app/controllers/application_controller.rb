@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from CanCan::AccessDenied, with: :render_forbidden
+  rescue_from ActionController::ParameterMissing, with: :render_bad_request
 
   protected
 
@@ -13,5 +14,9 @@ class ApplicationController < ActionController::API
 
   def render_forbidden(errors)
     render json: { errors: errors }, status: :forbidden
+  end
+
+  def render_bad_request(errors)
+    render json: { errors: errors }, status: :bad_request
   end
 end
