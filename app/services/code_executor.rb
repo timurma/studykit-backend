@@ -12,23 +12,6 @@ class CodeExecutor
     close_connections
   end
 
-  # def recieve
-  #   # we provide a callback that will be executed
-  #   # when RabbitMQ pushes messages to our consumer.
-  #   # This is what Bunny::Queue#subscribe does.
-  #
-  #   # Bunny::Queue#subscribe is used with the :block option
-  #   # that makes it block the calling thread (we don't want the script to finish running immediately!).
-  #
-  #   # manual_ack - consumer said that message was correctly processed
-  #   # otherwise rabbitmq sends message to the next consumer
-  #   q.subscribe(manual_ack: true, block: true) do |delivery_info, _properties, body|
-  #     puts " [x] Received #{body}"
-  #
-  #     channel.ack(delivery_info.delivery_tag)
-  #   end
-  # end
-
   private
 
   def queue
