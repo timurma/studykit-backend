@@ -8,6 +8,7 @@ gem 'puma', '~> 3.8'
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'bcrypt', '~> 3.1.11'
+gem 'bunny', '~> 2.6'
 gem 'cancancan', '~> 1.16'
 gem 'carrierwave', '~> 1.0'
 gem 'jwt', '~> 1.5'
