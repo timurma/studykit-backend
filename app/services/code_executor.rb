@@ -1,13 +1,6 @@
 class CodeExecutor
   attr_accessor :code_to_execute
 
-  # it is ok to have one connection per application
-  # closing channel/connection after usage is a good idea
-  def self.connection
-    # amqp://guest:guest@127.0.0.1:5672
-    @connection ||= Bunny.new.tap(&:start)
-  end
-
   def initialize(code_to_execute)
     self.code_to_execute = code_to_execute
   end
@@ -16,8 +9,7 @@ class CodeExecutor
     # publish a message to the default exchange which then gets routed to this queue
     # persistent - save message to the disk
     queue.publish(code_to_execute, persistent: true)
-
-    # TODO: probably close channel here
+    close_connections
   end
 
   # def recieve
@@ -44,6 +36,13 @@ class CodeExecutor
     @queue ||= channel.queue('code_to_execute', durable: true, auto_delete: false)
   end
 
+  # it is ok to have one connection per application
+  # closing channel/connection after usage is a good idea
+  def connection
+    # amqp://guest:guest@127.0.0.1:5672
+    @connection ||= Bunny.new.tap(&:start)
+  end
+
   # channels must not be shared between threads/workers
   # each channel has a thread pool (with single thread by default)
 
@@ -53,6 +52,13 @@ class CodeExecutor
   # new messages to worker, that does not acknowledged the previous one
   # this means that message will be delivered to the next free consumers
   def channel
-    @channel ||= CodeExecutor.connection.create_channel.tap { |c| c.prefetch(1) }
+    @channel ||= connection.create_channel.tap { |c| c.prefetch(1) }
+  end
+
+  def close_connections
+    @channel.close
+    @channel = nil
+    @connection.close
+    @connection = nil
   end
 end

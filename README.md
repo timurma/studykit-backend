@@ -32,7 +32,6 @@ POST /courses.json
 ```
 
 
-
 ### Установка RabbitMQ
 
 ---

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'code_executor#execute'
+
   scope :api do
     namespace :admin do
       resources :users do
