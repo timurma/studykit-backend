@@ -7,7 +7,9 @@ Rails.application.routes.draw do
         post 'login', on: :collection, to: 'sessions#create'
       end
       resources :courses do
-        resources :lectures
+        resources :lectures do
+          resources :lectures_content, only: %i(create update destroy)
+        end
       end
     end
 
