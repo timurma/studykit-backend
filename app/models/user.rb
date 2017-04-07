@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  mount_uploader :avatar, AvatarUploader
+  mount_base64_uploader :avatar, AvatarUploader
 
   enum role: [:student, :admin, :teacher]
 

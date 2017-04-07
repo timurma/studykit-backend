@@ -55,6 +55,9 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-base64 (2.5.0)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
     case_transform (0.2)
       activesupport
     coffee-rails (4.2.1)
@@ -193,6 +196,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 1.16)
   carrierwave (~> 1.0)
+  carrierwave-base64
   jwt (~> 1.5)
   listen (~> 3.0.5)
   oj (~> 2.18)
