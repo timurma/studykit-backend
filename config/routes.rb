@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       resources :users do
         post 'login', on: :collection, to: 'sessions#create'
       end
-      resources :courses
+      resources :courses do
+        resources :lectures
+      end
     end
 
     post 'users/login', to: 'sessions#create'
