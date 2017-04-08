@@ -1,4 +1,4 @@
-class LectureContentsController < ApplicationController
+class LectureContentsController < Admin::ApplicationController
   before_action :set_course
   before_action :set_lecture
   before_action :set_lecture_content, only: %i(update destroy)

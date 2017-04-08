@@ -3,22 +3,23 @@ Rails.application.routes.draw do
 
   scope :api do
     namespace :admin do
-      resources :users do
-        post 'login', on: :collection, to: 'sessions#create'
-      end
+      resources :articles
       resources :courses do
         resources :lectures do
           resources :lectures_content, only: %i(create update destroy)
         end
       end
+      resources :users do
+        post 'login', on: :collection, to: 'sessions#create'
+      end
     end
 
-    post 'users/login', to: 'sessions#create'
     resources :courses, only: %i(index show) do
       resources :lectures do
         resources :lectures_content, only: %i(create update destroy)
       end
     end
+    post 'users/login', to: 'sessions#create'
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
