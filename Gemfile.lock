@@ -196,7 +196,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 1.16)
   carrierwave (~> 1.0)
-  carrierwave-base64
+  carrierwave-base64 (~> 2.5)
   jwt (~> 1.5)
   listen (~> 3.0.5)
   oj (~> 2.18)

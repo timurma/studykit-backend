@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-  mount_uploader :avatar, AvatarUploader
+  mount_base64_uploader :avatar, AvatarUploader
 
   belongs_to :owner, class_name: 'User'
   has_many :lectures
