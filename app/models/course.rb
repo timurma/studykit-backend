@@ -5,4 +5,6 @@ class Course < ApplicationRecord
   has_many :lectures
 
   validates_presence_of :title, :description, :owner
+  validates_integrity_of :avatar
+  validates_processing_of :avatar
 end

@@ -6,6 +6,8 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email, :password_digest, :role
   validates_uniqueness_of :email, case_sensitive: false
   validates_inclusion_of :role, in: roles.keys
+  validates_integrity_of :avatar
+  validates_processing_of :avatar
 
   def self.find_by_email_password(email, password)
     user = where('LOWER(email) = ?', email.downcase).first
