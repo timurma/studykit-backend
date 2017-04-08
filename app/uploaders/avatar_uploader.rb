@@ -9,6 +9,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "#{uuid}.#{file.extension}" if original_filename.present?
   end
 
+  def cache_dir
+    "#{Rails.root}/tmp/uploads/cache/#{model.id}"
+  end
+
   def extension_whitelist
     %w(jpg jpeg png)
   end
@@ -16,6 +20,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   protected
 
   def uuid
-    @uuid ||= SecureRandom.uuid
+    uuid_value = :"@#{mounted_as}_uuid"
+    model.instance_variable_get(uuid_value) || model.instance_variable_set(uuid_value, SecureRandom.uuid)
   end
 end
