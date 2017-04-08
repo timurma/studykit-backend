@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :articles, only: %i(index show)
     resources :courses, only: %i(index show) do
       resources :lectures do
         resources :lectures_content, only: %i(create update destroy)
