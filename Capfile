@@ -7,6 +7,7 @@ install_plugin Capistrano::SCM::Git
 require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/puma'
+install_plugin Capistrano::Puma
 require 'capistrano/rails/migrations'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
