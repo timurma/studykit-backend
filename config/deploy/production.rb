@@ -1,4 +1,4 @@
-server '46.101.216.31', user: 'root', roles: [:web, :app, :db]
+server '46.101.216.31', user: 'studykit', roles: [:web, :app, :db]
 
 set :stage, :production
 
