@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407104947) do
+ActiveRecord::Schema.define(version: 20170411134707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,13 +52,12 @@ ActiveRecord::Schema.define(version: 20170407104947) do
   end
 
   create_table "lecture_contents", force: :cascade do |t|
-    t.string   "type"
-    t.string   "title"
+    t.string   "actable_type"
     t.integer  "lecture_id"
-    t.string   "body"
     t.integer  "serial_number"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "actable_id"
   end
 
   create_table "lectures", force: :cascade do |t|
@@ -67,6 +66,11 @@ ActiveRecord::Schema.define(version: 20170407104947) do
     t.integer  "serial_number"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "markdown_contents", force: :cascade do |t|
+    t.string "title"
+    t.string "body"
   end
 
   create_table "user_groups", force: :cascade do |t|
@@ -85,6 +89,10 @@ ActiveRecord::Schema.define(version: 20170407104947) do
     t.datetime "updated_at",                  null: false
     t.string   "password_digest"
     t.integer  "role",            default: 0
+  end
+
+  create_table "video_contents", force: :cascade do |t|
+    t.string "url"
   end
 
 end
