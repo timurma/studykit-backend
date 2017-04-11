@@ -17,7 +17,6 @@ gem 'dotenv-rails', '~> 2.2'
 gem 'jwt', '~> 1.5'
 gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
-gem 'rack-cors', '~> 0.4'
 gem 'rails_admin', '1.1.0'
 
 group :development, :test do
