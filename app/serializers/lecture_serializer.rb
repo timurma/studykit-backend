@@ -1,5 +1,7 @@
 class LectureSerializer < ActiveModel::Serializer
-  has_many :content
+  attributes :id, :title, :serial_number, :course_id, :content
 
-  attributes :id, :title, :serial_number, :course_id
+  def content
+    object.content.map(&:specific)
+  end
 end
