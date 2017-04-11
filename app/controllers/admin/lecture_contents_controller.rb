@@ -4,7 +4,7 @@ class Admin::LectureContentsController < Admin::ApplicationController
   before_action :set_lecture_content, only: %i(update destroy)
 
   def create
-    lecture_content = @lecture.content.build lecture_content_params
+    lecture_content = @lecture.content.build_specific lecture_content_params
 
     if lecture_content.save
       render json: lecture_content, status: :created
@@ -14,6 +14,7 @@ class Admin::LectureContentsController < Admin::ApplicationController
   end
 
   def update
+    @lecture_content = @lecture_content.specific
     if @lecture_content.update(lecture_content_params)
       render json: @lecture_content
     else
@@ -41,6 +42,8 @@ class Admin::LectureContentsController < Admin::ApplicationController
   end
 
   def lecture_content_params
-    params.require(:lecture_content).permit(:type, :title, :body, :serial_number)
+    params.require(:lecture_content).permit(:type, :serial_number,
+                                            :title, :body,
+                                            :url)
   end
 end

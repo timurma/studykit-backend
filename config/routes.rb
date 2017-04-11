@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :articles
       resources :courses do
         resources :lectures do
-          resources :lectures_content, only: %i(create update destroy)
+          resources :lecture_contents, only: %i(create update destroy)
         end
       end
       resources :users do
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :articles, only: %i(index show)
     resources :courses, only: %i(index show) do
       resources :lectures do
-        resources :lectures_content, only: %i(create update destroy)
+        resources :lecture_contents, only: %i(create update destroy)
       end
     end
     post 'users/login', to: 'sessions#create'

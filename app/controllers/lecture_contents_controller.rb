@@ -5,7 +5,7 @@ class LectureContentsController < ApplicationController
   before_action :authenticate_with_token!, only: %i(create update destroy)
 
   def create
-    lecture_content = @lecture.content.build lecture_content_params
+    lecture_content = @lecture.content.build_specific lecture_content_params
     authorize!(:create, lecture_content)
 
     if lecture_content.save
@@ -16,6 +16,7 @@ class LectureContentsController < ApplicationController
   end
 
   def update
+    @lecture_content = @lecture_content.specific
     authorize!(:update, @lecture_content)
 
     if @lecture_content.update(lecture_content_params)
@@ -46,6 +47,8 @@ class LectureContentsController < ApplicationController
   end
 
   def lecture_content_params
-    params.require(:lecture_content).permit(:type, :title, :body, :serial_number)
+    params.require(:lecture_content).permit(:type, :serial_number,
+                                            :title, :body,
+                                            :url)
   end
 end
