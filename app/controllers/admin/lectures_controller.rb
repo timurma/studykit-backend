@@ -1,9 +1,8 @@
 class Admin::LecturesController < Admin::ApplicationController
-  before_action :set_course
   before_action :set_lecture, only: %i(show update destroy)
 
   def index
-    render json: @course.lectures.order(:serial_number)
+    render json: Lecture.order(updated_at: :desc)
   end
 
   def show
@@ -11,7 +10,7 @@ class Admin::LecturesController < Admin::ApplicationController
   end
 
   def create
-    lecture = @course.lectures.build lecture_params
+    lecture = Lecture.new lecture_params
 
     if lecture.save
       render json: lecture, status: :created
@@ -35,15 +34,11 @@ class Admin::LecturesController < Admin::ApplicationController
 
   private
 
-  def set_course
-    @course = Course.find params[:course_id]
-  end
-
   def set_lecture
-    @lecture = @course.lectures.find params[:id]
+    @lecture = Lecture.find params[:id]
   end
 
   def lecture_params
-    params.require(:lecture).permit(:title, :serial_number)
+    params.require(:lecture).permit(:course_id, :title, :serial_number)
   end
 end

@@ -3,12 +3,7 @@ Rails.application.routes.draw do
 
   scope :api do
     namespace :admin do
-      resources :articles
-      resources :courses do
-        resources :lectures do
-          resources :lecture_contents, only: %i(create update destroy)
-        end
-      end
+      resources :articles, :courses, :lectures, :lecture_contents
       resources :users do
         post 'login', on: :collection, to: 'sessions#create'
       end
