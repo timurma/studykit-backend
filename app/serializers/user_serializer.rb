@@ -1,9 +1,13 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :email, :avatar, :role, :jwt_token
+  attributes :id, :first_name, :last_name, :email, :avatar, :role
+  attribute :jwt_token, if: :token_present?
 
-  # TODO: remove jwt_token from each user, insert it only on login
   def jwt_token
     instance_options[:jwt_token]
+  end
+
+  def token_present?
+    jwt_token.present?
   end
 
   def avatar
