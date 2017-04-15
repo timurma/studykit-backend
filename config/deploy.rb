@@ -7,7 +7,7 @@ set :repo_url, 'git@github.com:timurma/studykit-backend.git'
 set :user,         'studykit'
 set :deploy_to,    "/home/#{fetch(:user)}/#{fetch(:application)}"
 set :linked_files, %w(.env)
-set :linked_dirs,  %w(log tmp/pids tmp/cache tmp/sockets)
+set :linked_dirs,  %w(log tmp/pids tmp/cache tmp/sockets public/uploads)
 
 set :puma_threads,            [1, 8]
 set :puma_workers,            0
