@@ -3,10 +3,42 @@ class CourseContentsController < ApplicationController
   before_action :set_course_content, only: %i(show update destroy)
   before_action :authenticate_with_token!, only: %i(show create update destroy)
 
+  def_param_group :course_content do
+    param :course_content, Hash do
+      param :type, %w(MarkdownContent VideoContent), required: true
+      param :serial_number, Integer, required: true
+      param :title, String, desc: 'MarkdownContent only'
+      param :body, String, desc: 'MarkdownContent only'
+      param :url, String, desc: 'VideoContent only'
+    end
+  end
+
   def show
     render json: @course_content.specific
   end
 
+  api!
+  param_group :course_content
+  example '
+  {
+    "course_content":{
+      "type": "MarkdownContent"
+      "serial_number": 5,
+      "title": "New content",
+      "body": "*md goes here*",
+    }
+  }
+  {
+    "id": 6,
+    "type": "MarkdownContent",
+    "course_id": 1,
+    "serial_number": 5,
+    "body": "New content",
+    "title": "*md goes here*"
+  }
+  '
+  error code: 403, desc: 'Do not have access to edit course'
+  error code: 422, desc: 'Invalid course content'
   def create
     course_content = @course.content.build_specific course_content_params
     authorize!(:create, course_content)
