@@ -1,5 +1,5 @@
 class MarkdownContent < ApplicationRecord
-  acts_as :lecture_content
+  acts_as :course_content
 
   validates_presence_of :title, :body
 end

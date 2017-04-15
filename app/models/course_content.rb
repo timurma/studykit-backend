@@ -1,12 +1,12 @@
-class LectureContent < ApplicationRecord
+class CourseContent < ApplicationRecord
   actable
 
   self.inheritance_column = '_type'
   alias_attribute :type, :actable_type
 
-  belongs_to :lecture
+  belongs_to :course
 
-  validates_presence_of :lecture, :serial_number
+  validates_presence_of :course, :serial_number
 
   # HACK:
   def self.build_specific(params)

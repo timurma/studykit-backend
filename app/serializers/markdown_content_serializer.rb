@@ -1,3 +1,3 @@
 class MarkdownContentSerializer < ActiveModel::Serializer
-  attributes :id, :type, :lecture_id, :serial_number, :body, :title
+  attributes :id, :type, :course_id, :serial_number, :body, :title
 end
