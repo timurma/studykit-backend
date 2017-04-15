@@ -1,8 +1,11 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show]
+  before_action :try_set_owner, only: [:index]
 
   def index
-    render json: Course.order(updated_at: :desc), host: request.base_url
+    @courses = Course.all
+    @courses = @owner.owned_courses if @owner
+    render json: @courses.order(updated_at: :desc), host: request.base_url
   end
 
   def show
@@ -13,5 +16,9 @@ class CoursesController < ApplicationController
 
   def set_course
     @course = Course.find params[:id]
+  end
+
+  def try_set_owner
+    @owner = User.find_by(id: params[:user_id])
   end
 end

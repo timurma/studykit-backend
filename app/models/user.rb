@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   enum role: [:student, :admin, :teacher]
 
+  has_many :owned_courses, class_name: 'Course', foreign_key: 'owner_id'
+
   validates_presence_of :first_name, :last_name, :email, :password_digest, :role
   validates_uniqueness_of :email, case_sensitive: false
   validates_inclusion_of :role, in: roles.keys

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :course_contents, only: %i(show create update destroy), path: 'content'
     end
     resources :users, only: %i(show)
+    get 'users/:user_id/courses', to: 'courses#index'
     post 'users/login', to: 'sessions#create'
   end
 
