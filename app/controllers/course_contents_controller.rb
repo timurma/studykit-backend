@@ -1,7 +1,11 @@
 class CourseContentsController < ApplicationController
   before_action :set_course
-  before_action :set_course_content, only: %i(update destroy)
-  before_action :authenticate_with_token!, only: %i(create update destroy)
+  before_action :set_course_content, only: %i(show update destroy)
+  before_action :authenticate_with_token!, only: %i(show create update destroy)
+
+  def show
+    render json: @course_content.specific
+  end
 
   def create
     course_content = @course.content.build_specific course_content_params

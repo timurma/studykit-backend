@@ -1,6 +1,6 @@
 class CourseSerializer < ActiveModel::Serializer
   belongs_to :owner
-  has_many :course_content
+  has_many :content
 
   attributes :id, :title, :description, :avatar, :owner
 
