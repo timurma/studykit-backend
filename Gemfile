@@ -8,6 +8,7 @@ gem 'puma', '~> 3.8'
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'active_record-acts_as', '~> 2.2'
+gem 'apipie-rails', '~> 0.4'
 gem 'bcrypt', '~> 3.1.11'
 gem 'bunny', '~> 2.6'
 gem 'cancancan', '~> 1.16'
