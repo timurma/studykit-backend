@@ -6,4 +6,4 @@ Sneakers.configure(amqp: "amqp://#{ENV['RABBITMQ_USER']}:#{ENV['RABBITMQ_PASS']}
                    pid_path: File.join('tmp', 'pids', 'sneakers.pid'),
                    threads: 1)
 
-Sneakers.logger.level = Logger::INFO
+Sneakers.logger.level = Logger::WARN
