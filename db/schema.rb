@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415001114) do
+ActiveRecord::Schema.define(version: 20170423090322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,14 @@ ActiveRecord::Schema.define(version: 20170415001114) do
   create_table "markdown_contents", force: :cascade do |t|
     t.string "title"
     t.string "body"
+  end
+
+  create_table "sql_problem_contents", force: :cascade do |t|
+    t.string   "title"
+    t.string   "body"
+    t.integer  "sql_problem_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "user_groups", force: :cascade do |t|
