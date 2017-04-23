@@ -16,6 +16,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-base64', '~> 2.5'
 gem 'dotenv-rails', '~> 2.2'
 gem 'jwt', '~> 1.5'
+gem 'listen', '~> 3.0.5'
 gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'rails_admin', '1.1.0'
@@ -34,7 +35,6 @@ group :development do
                               git: 'https://github.com/inventionlabsSydney/capistrano-sneakers.git',
                               ref: '63514ab504341e92f73380a210b405997ff073f7'
   gem 'capistrano3-puma',     '~> 3.1', require: false
-  gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
