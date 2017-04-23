@@ -1,7 +1,8 @@
 class SqlProblemContent < ApplicationRecord
   acts_as :course_content
 
-  has_one :sql_problem
+  belongs_to :sql_problem
+  has_many :sql_solutions, through: :sql_problem
 
   validates_presence_of :title, :body, :sql_problem
 end

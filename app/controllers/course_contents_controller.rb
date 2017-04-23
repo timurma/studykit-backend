@@ -5,14 +5,36 @@ class CourseContentsController < ApplicationController
 
   def_param_group :course_content do
     param :course_content, Hash do
-      param :type, %w(MarkdownContent VideoContent), required: true
+      param :type, %w(MarkdownContent VideoContent SqlProblemContent), required: true
       param :serial_number, Integer, required: true
       param :title, String, desc: 'MarkdownContent only'
       param :body, String, desc: 'MarkdownContent only'
       param :url, String, desc: 'VideoContent only'
+      param :sql_problem_id, Integer, desc: 'SqlProblemContent only'
     end
   end
 
+  api!
+  example '
+  {
+    "id": 8,
+    "type": "SqlProblemContent",
+    "course_id": 1,
+    "serial_number": 111,
+    "title": "Выберите всех пользователей",
+    "body": "Hey, you need to select all users",
+    "sql_problem_id": 1,
+    "sql_solutions": [
+      {
+        "id": 1,
+        "sql_problem_id": 1,
+        "user_id": 3,
+        "code": "select 1;",
+        "succeed": null
+      }
+    ]
+  }
+  '
   def show
     render json: @course_content.specific
   end
