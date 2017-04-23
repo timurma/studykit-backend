@@ -30,7 +30,9 @@ group :development do
   gem 'capistrano-bundler',   '~> 1.2', require: false
   gem 'capistrano-rails',     '~> 1.2', require: false
   gem 'capistrano-rvm',       '~> 0.1', require: false
-  gem 'capistrano-sneakers',  '~> 0.0', require: false
+  gem 'capistrano-sneakers',  require: false,
+                              git: 'https://github.com/inventionlabsSydney/capistrano-sneakers.git',
+                              ref: '63514ab504341e92f73380a210b405997ff073f7'
   gem 'capistrano3-puma',     '~> 3.1', require: false
   gem 'listen', '~> 3.0.5'
   gem 'spring'

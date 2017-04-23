@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/inventionlabsSydney/capistrano-sneakers.git
+  revision: 63514ab504341e92f73380a210b405997ff073f7
+  ref: 63514ab504341e92f73380a210b405997ff073f7
+  specs:
+    capistrano-sneakers (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,7 +79,6 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano-sneakers (0.0.1)
     capistrano3-puma (3.1.0)
       capistrano (~> 3.7)
       capistrano-bundler
@@ -245,7 +251,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.2)
   capistrano-rails (~> 1.2)
   capistrano-rvm (~> 0.1)
-  capistrano-sneakers (~> 0.0)
+  capistrano-sneakers!
   capistrano3-puma (~> 3.1)
   carrierwave (~> 1.0)
   carrierwave-base64 (~> 2.5)
