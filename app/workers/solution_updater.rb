@@ -3,7 +3,7 @@ class SolutionUpdater
   from_queue 'code_to_execute'
 
   def work(message)
-    puts message
+    Sneakers.logger.info message
     ack!
   end
 end
