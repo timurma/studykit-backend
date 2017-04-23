@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
 
     resources :articles, only: %i(index show)
-    resources :sql_solutions, only: %i(show)
+    resources :sql_solutions, only: %i(show create)
     resources :courses, only: %i(index show) do
       resources :course_contents, only: %i(show create update destroy), path: 'content'
     end
