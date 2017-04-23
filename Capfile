@@ -7,6 +7,7 @@ install_plugin Capistrano::SCM::Git
 require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/puma'
+require 'capistrano/sneakers'
 install_plugin Capistrano::Puma
 require 'capistrano/rails/migrations'
 

@@ -1,4 +1,4 @@
-lock '3.8.0'
+lock '3.8.1'
 
 set :application, 'studykit'
 set :repo_url, 'git@github.com:timurma/studykit-backend.git'
