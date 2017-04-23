@@ -4,6 +4,7 @@ class User < ApplicationRecord
   enum role: [:student, :admin, :teacher]
 
   has_many :owned_courses, class_name: 'Course', foreign_key: 'owner_id'
+  has_many :sql_solutions
 
   validates_presence_of :first_name, :last_name, :email, :password_digest, :role
   validates_uniqueness_of :email, case_sensitive: false
