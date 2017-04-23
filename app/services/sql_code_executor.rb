@@ -1,14 +1,23 @@
-class CodeExecutor
-  attr_accessor :code_to_execute
+class SqlCodeExecutor
+  attr_accessor :execution_params
 
-  def initialize(code_to_execute)
-    self.code_to_execute = code_to_execute
+  def initialize(sql_solution)
+    sql_problem = sql_solution.sql_problem
+    sql_params = {
+      code: sql_solution.code,
+      sql_problem_id: sql_solution.sql_problem_id,
+      initial_code: sql_problem.initial_code,
+      solution_code: sql_problem.solution_code,
+      check_function: sql_problem.check_function
+    }
+    json_params = sql_params.to_json
+    self.execution_params = json_params
   end
 
-  def perform
+  def call
     # publish a message to the default exchange which then gets routed to this queue
     # persistent - save message to the disk
-    queue.publish(code_to_execute, persistent: true)
+    queue.publish(execution_params, persistent: true)
     close_connections
   end
 

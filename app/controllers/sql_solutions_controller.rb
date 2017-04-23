@@ -68,6 +68,7 @@ class SqlSolutionsController < ApplicationController
     sql_solution = current_user.sql_solutions.build sql_solution_params
 
     if sql_solution.save
+      SqlCodeExecutor.new(sql_solution).call
       render json: sql_solution, status: :created
     else
       render json: { errors: sql_solution.errors.full_messages }, status: :unprocessable_entity
