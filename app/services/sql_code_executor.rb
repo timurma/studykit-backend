@@ -4,8 +4,8 @@ class SqlCodeExecutor
   def initialize(sql_solution)
     sql_problem = sql_solution.sql_problem
     sql_params = {
+      sql_solution_id: sql_solution.id,
       code: sql_solution.code,
-      sql_problem_id: sql_solution.sql_problem_id,
       initial_code: sql_problem.initial_code,
       solution_code: sql_problem.solution_code,
       check_function: sql_problem.check_function
