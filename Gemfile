@@ -7,8 +7,8 @@ gem 'pg', '~> 0.20'
 gem 'puma', '~> 3.8'
 
 gem 'active_model_serializers', '~> 0.10'
-gem 'active_record-acts_as', '~> 2.2'
-gem 'apipie-rails', '~> 0.4'
+gem 'active_record-acts_as', '~> 2.4'
+gem 'apipie-rails', '~> 0.5'
 gem 'bcrypt', '~> 3.1.11'
 gem 'bunny', '~> 2.6'
 gem 'cancancan', '~> 1.16'
@@ -19,6 +19,7 @@ gem 'jwt', '~> 1.5'
 gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'rails_admin', '1.1.0'
+gem 'sneakers', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri
