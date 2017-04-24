@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   scope :api do
     namespace :admin do
-      resources :articles, :courses, :lectures, :lecture_contents
+      resources :articles, :courses, :lectures, :lecture_contents, :sql_problems
       resources :users do
         post 'login', on: :collection, to: 'sessions#create'
       end
