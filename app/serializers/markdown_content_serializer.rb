@@ -1,3 +1,3 @@
-class MarkdownContentSerializer < CourseContentSerializer
+class MarkdownContentSerializer < LectureContentSerializer
   attributes :body, :title
 end

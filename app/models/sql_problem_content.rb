@@ -1,5 +1,5 @@
 class SqlProblemContent < ApplicationRecord
-  acts_as :course_content
+  acts_as :lecture_content
 
   belongs_to :sql_problem
   has_many :sql_solutions, through: :sql_problem

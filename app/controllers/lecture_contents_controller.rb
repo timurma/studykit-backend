@@ -1,10 +1,10 @@
-class CourseContentsController < ApplicationController
-  before_action :set_course
-  before_action :set_course_content, only: %i(show update destroy)
+class LectureContentsController < ApplicationController
+  before_action :set_lecture
+  before_action :set_lecture_content, only: %i(show update destroy)
   before_action :authenticate_with_token!, only: %i(show create update destroy)
 
-  def_param_group :course_content do
-    param :course_content, Hash do
+  def_param_group :lecture_content do
+    param :lecture_content, Hash do
       param :type, %w(MarkdownContent VideoContent SqlProblemContent), required: true
       param :serial_number, Integer, required: true
       param :title, String, desc: 'MarkdownContent only'
@@ -36,14 +36,14 @@ class CourseContentsController < ApplicationController
   }
   '
   def show
-    render json: @course_content.specific
+    render json: @lecture_content.specific
   end
 
   api!
-  param_group :course_content
+  param_group :lecture_content
   example '
   {
-    "course_content":{
+    "lecture_content":{
       "type": "MarkdownContent"
       "serial_number": 5,
       "title": "New content",
@@ -62,46 +62,47 @@ class CourseContentsController < ApplicationController
   error code: 403, desc: 'Do not have access to edit course'
   error code: 422, desc: 'Invalid course content'
   def create
-    course_content = @course.content.build_specific course_content_params
-    authorize!(:create, course_content)
+    lecture_content = @lecture.content.build_specific lecture_content_params
+    authorize!(:create, lecture_content)
 
-    if course_content.save
-      render json: course_content, status: :created
+    if lecture_content.save
+      render json: lecture_content, status: :created
     else
-      render json: { errors: course_content.errors }, status: :unprocessable_entity
+      render json: { errors: lecture_content.errors }, status: :unprocessable_entity
     end
   end
 
   def update
-    @course_content = @course_content.specific
-    authorize!(:update, @course_content)
+    @lecture_content = @lecture_content.specific
+    authorize!(:update, @lecture_content)
 
-    if @course_content.update(course_content_params)
-      render json: @course_content
+    if @lecture_content.update(lecture_content_params)
+      render json: @lecture_content
     else
-      render json: { errors: @course_content.errors }, status: :unprocessable_entity
+      render json: { errors: @lecture_content.errors }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    authorize!(:destroy, @course_content)
-    @course_content.destroy
+    authorize!(:destroy, @lecture_content)
+    @lecture_content.destroy
     head :no_content
   end
 
   private
 
-  def set_course
-    @course = Course.find params[:course_id]
+  def set_lecture
+    @lecture = Lecture.find params[:lecture_id]
   end
 
-  def set_course_content
-    @course_content = @course.content.find params[:id]
+  def set_lecture_content
+    @lecture_content = @lecture.content.find params[:id]
   end
 
-  def course_content_params
-    params.require(:course_content).permit(:type, :serial_number,
-                                           :title, :body,
-                                           :url)
+  def lecture_content_params
+    params.require(:lecture_content).permit(:type, :serial_number,
+                                            :title, :body,
+                                            :url,
+                                            :sql_problem_id)
   end
 end

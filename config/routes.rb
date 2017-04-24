@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   scope :api do
     namespace :admin do
-      resources :articles, :courses, :course_contents
+      resources :articles, :courses, :lectures, :lecture_contents
       resources :users do
         post 'login', on: :collection, to: 'sessions#create'
       end
@@ -9,8 +9,9 @@ Rails.application.routes.draw do
 
     resources :articles, only: %i(index show)
     resources :sql_solutions, only: %i(show create)
-    resources :courses, only: %i(index show) do
-      resources :course_contents, only: %i(show create update destroy), path: 'content'
+    resources :courses, only: %i(index show)
+    resources :lectures, only: %i(index show) do
+      resources :lecture_contents, only: %i(show create update destroy), path: 'content'
     end
     resources :users, only: %i(show) do
       post 'login', on: :collection, to: 'sessions#create'

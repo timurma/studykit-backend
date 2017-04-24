@@ -1,3 +1,3 @@
-class VideoContentSerializer < CourseContentSerializer
+class VideoContentSerializer < LectureContentSerializer
   attributes :url
 end

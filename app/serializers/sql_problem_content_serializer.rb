@@ -1,4 +1,4 @@
-class SqlProblemContentSerializer < CourseContentSerializer
+class SqlProblemContentSerializer < LectureContentSerializer
   attributes :body, :title, :sql_problem_id, :sql_solutions
 
   def sql_solutions
