@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
   def index
     @courses = Course.all
     @courses = @owner.owned_courses if @owner
-    render json: @courses.includes(:content).order(updated_at: :desc), host: request.base_url
+    render json: @courses.order(updated_at: :desc), host: request.base_url
   end
 
   def show
