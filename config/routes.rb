@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :lectures, only: %i(index show) do
       resources :lecture_contents, only: %i(show create update destroy), path: 'content'
     end
-    resources :users, only: %i(show) do
+    resources :users, only: %i(show create destroy) do
       post 'login', on: :collection, to: 'sessions#create'
     end
     get 'users/:user_id/courses', to: 'courses#index'
