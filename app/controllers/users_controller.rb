@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_with_token!, only: %i(show destroy)
-  before_action :set_user, only: %i(show destroy)
+  before_action :authenticate_with_token!, only: %i(show update destroy)
+  before_action :set_user, only: %i(show update destroy)
 
   def_param_group :user do
     param :user, Hash do
@@ -82,6 +82,42 @@ class UsersController < ApplicationController
       render json: user, status: :created, host: request.base_url
     else
       render json: { errors: user.errors }, status: :unprocessable_entity
+    end
+  end
+
+  api!
+  param_group :user
+  example '
+  {
+    "user":{
+      "first_name": "tim2",
+    }
+  }
+  {
+    "id": 3,
+    "firstName": "tim2",
+    "lastName": "plat",
+    "email": "tpltn",
+    "avatar": null,
+    "role": "admin"
+  }
+  '
+  example '
+  {
+    "user":{
+    }
+  }
+  {
+    "errors": "param is missing or the value is empty: user"
+  }
+  '
+  error code: 400, desc: 'Invalid user params'
+  error code: 422, desc: 'Invalid user params'
+  def update
+    if @user.update(user_params)
+      render json: @user, host: request.base_url
+    else
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
