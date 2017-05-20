@@ -8,6 +8,7 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.teacher?
+      can(:manage, Course) { |course| course.owner == user }
       can(:manage, Lecture) { |lecture| lecture.course.owner == user }
       can(:manage, LectureContent) { |lecture_content| lecture_content.lecture.course.owner == user }
     elsif user.student?
