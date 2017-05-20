@@ -35,7 +35,7 @@ class User < ApplicationRecord
   end
 
   def issue_token
-    exp = 3.days.from_now.to_i
+    exp = 3.months.from_now.to_i
     payload = { user_id: id, exp: exp }
     JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
   end
