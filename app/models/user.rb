@@ -5,6 +5,9 @@ class User < ApplicationRecord
 
   has_many :owned_courses, class_name: 'Course', foreign_key: 'owner_id'
   has_many :sql_solutions
+  has_many :user_groups
+  has_many :groups, through: :user_groups
+  has_many :courses, through: :groups
 
   validates_presence_of :first_name, :last_name, :email, :password_digest, :role
   validates_uniqueness_of :email, case_sensitive: false

@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
+  has_scope :owned_by, only: :index
+  has_scope :participated_by, only: :index
+
   before_action :set_course, only: %i(show update destroy)
-  before_action :try_set_owner, only: [:index]
   before_action :authenticate_with_token!, only: %i(create update destroy)
 
   def_param_group :course do
@@ -11,9 +13,13 @@ class CoursesController < ApplicationController
     end
   end
 
+  api!
+  param :owned_by, Integer, desc: 'Owner id'
+  param :participated_by, Integer, desc: 'Student id'
+  example '/courses?owned_by=1'
+  example '/courses?owned_by=1&participated_by=5'
   def index
-    @courses = Course.all
-    @courses = @owner.owned_courses if @owner
+    @courses = apply_scopes(Course).includes(:owner, :lectures)
     render json: @courses.order(updated_at: :desc), host: request.base_url
   end
 
@@ -126,10 +132,6 @@ class CoursesController < ApplicationController
 
   def set_course
     @course = Course.find params[:id]
-  end
-
-  def try_set_owner
-    @owner = User.find_by(id: params[:user_id])
   end
 
   def course_params

@@ -16,7 +16,6 @@ Rails.application.routes.draw do
     resources :users, only: %i(show create update destroy) do
       post 'login', on: :collection, to: 'sessions#create'
     end
-    get 'users/:user_id/courses', to: 'courses#index'
   end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
