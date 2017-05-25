@@ -3,12 +3,12 @@ Feature: I want to login in StudyKit
   Background:
     Given I am at StudyKit.com
 
-  Scenario Outline: I login Govermedia with error
+  Scenario Outline: I login StudyKit with error
+      And I click "Войти"
     Given I am on form login
-     Then I click "Войти"
-      And I type <email>
-      And I type <password>
-     Then I click button Войти
+      And I type email with <email>
+      And I type password with <password>
+     Then I login
      When I am see error with text <error_text>
 
     Examples:
@@ -20,11 +20,11 @@ Feature: I want to login in StudyKit
     | "unregister_email@gmail.com" | "correct_password" | "Пользователь не найден!" |
     | "incorrect_email@gmail.com" | "correct_password" | "Пароль неверный!" | 
 
-Scenario Outline: I login Govermedia with correct data
+Scenario Outline: I login StudyKit with correct data
     Given I am on form login
-      And I type <email>
-      And I type <password>
-     Then I click "Войти"
+      And I type email with <email>
+      And I type password with <password>
+     Then I login
      When I am main page
     
     Examples:
