@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def_param_group :user do
-    param :user, Hash, desc: 'User login info' do
+    param :user, Hash, desc: 'User login info', required: true do
       param :email, String, desc: 'Email for login', required: true
       param :password, String, desc: 'Password for login', required: true
     end
@@ -33,10 +33,10 @@ class SessionsController < ApplicationController
     }
   }
   {
-    "errors": "Invalid credentials"
+    "errors": "User with specified credentials not found"
   }
   '
-  error code: 404, desc: 'User not found'
+  error code: 404, desc: 'User with specified credentials not found'
   def create
     user = User.find_by_email_password(login_params[:email], login_params[:password])
 
@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
       token = user.issue_token
       render json: user, jwt_token: token
     else
-      render json: { errors: 'Invalid credentials' }, status: :not_found
+      render json: { errors: 'User with specified credentials not found' }, status: :not_found
     end
   end
 
