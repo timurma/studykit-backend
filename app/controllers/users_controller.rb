@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(show update destroy)
 
   def_param_group :user do
-    param :user, Hash do
+    param :user, Hash, required: true do
       param :first_name, String, required: true
       param :last_name, String, required: true
       param :email, String, required: true
@@ -64,24 +64,30 @@ class UsersController < ApplicationController
     }
   }
   {
-    "errors": {
-      "first_name": [
-        "can\'t be blank"
-      ],
-      "email": [
-        "has already been taken"
-      ]
-    }
+    "errors": [
+      "First name can\'t be blank",
+      "Email has already been taken"
+    ]
   }
   '
-  error code: 422, desc: 'Invalid user'
+  example '
+  {
+    "user":{
+    }
+  }
+  {
+    "errors": "param is missing or the value is empty: user"
+  }
+  '
+  error code: 400, desc: 'Null or empty *user* param'
+  error code: 422, desc: 'One or more of the *user* params are invalid'
   def create
     user = User.new user_params
 
     if user.save
       render json: user, status: :created, host: request.base_url
     else
-      render json: { errors: user.errors }, status: :unprocessable_entity
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -117,7 +123,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user, host: request.base_url
     else
-      render json: { errors: @user.errors }, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
