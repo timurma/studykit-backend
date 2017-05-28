@@ -33,6 +33,11 @@ class User < ApplicationRecord
   end
 
   def password=(new_password)
+    if new_password.blank?
+      self.password_digest = nil
+      return password_digest
+    end
+
     @password = BCrypt::Password.create(new_password)
     self.password_digest = @password
   end
