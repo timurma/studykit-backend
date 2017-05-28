@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# ruby '2.3.3'
+ruby '2.3.3'
 
 gem 'rails', '~> 5.0.2'
 gem 'pg', '~> 0.20'
@@ -25,6 +25,7 @@ gem 'sneakers', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'factory_girl_rails', '~> 4.8'
 end
 
 group :development do
