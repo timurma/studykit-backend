@@ -28,23 +28,38 @@ class SessionsController < ApplicationController
   example '
   {
     "user": {
-      "email": "tpltn",
+      "email": "",
       "password": "123"
     }
   }
   {
-    "errors": "User with specified credentials not found"
+    "errors": "User with specified email not found"
   }
   '
+  example '
+  {
+    "user": {
+      "email": "tpltn",
+      "password": null
+  }
+  }
+  {
+    "errors": "Incorrect password"
+  }
+  '
+  error code: 401, desc: 'Incorrect password'
   error code: 404, desc: 'User with specified credentials not found'
   def create
-    user = User.find_by_email_password(login_params[:email], login_params[:password])
-
+    user = User.find_by_email login_params[:email]
     if user
-      token = user.issue_token
-      render json: user, jwt_token: token
+      if user.password == login_params[:password]
+        token = user.issue_token
+        render json: user, jwt_token: token
+      else
+        render json: { errors: 'Incorrect password' }, status: :unauthorized
+      end
     else
-      render json: { errors: 'User with specified credentials not found' }, status: :not_found
+      render json: { errors: 'User with specified email not found' }, status: :not_found
     end
   end
 

@@ -15,9 +15,9 @@ class User < ApplicationRecord
   validates_integrity_of :avatar
   validates_processing_of :avatar
 
-  def self.find_by_email_password(email, password)
-    user = where('LOWER(email) = ?', email.downcase).first
-    return user if user && user.password == password
+  def self.find_by_email(email)
+    return nil if email.nil?
+    find_by('LOWER(email) = ?', email.downcase)
   end
 
   def self.find_by_token(token)
