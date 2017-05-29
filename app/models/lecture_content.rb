@@ -5,6 +5,8 @@ class LectureContent < ApplicationRecord
   alias_attribute :type, :actable_type
 
   belongs_to :lecture
+  has_many :wikidata_items_to_lecture_contents
+  has_many :wikidata_items, through: :wikidata_items_to_lecture_contents
 
   validates_presence_of :lecture, :serial_number
 

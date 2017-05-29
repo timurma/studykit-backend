@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529143925) do
+ActiveRecord::Schema.define(version: 20170529144822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,12 @@ ActiveRecord::Schema.define(version: 20170529143925) do
     t.string   "wikidata_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "wikidata_items_to_lecture_contents", force: :cascade do |t|
+    t.integer "wikidata_item_id"
+    t.integer "lecture_content_id"
+    t.integer "priority"
   end
 
   add_foreign_key "course_categories", "categories"
