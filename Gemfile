@@ -22,6 +22,10 @@ gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'rails_admin', '1.1.0'
 gem 'sneakers', '~> 2.5'
+gem 'capybara'
+gem 'cucumber'
+gem 'selenium-webdriver'
+
 
 group :development, :test do
   gem 'byebug', platform: :mri
