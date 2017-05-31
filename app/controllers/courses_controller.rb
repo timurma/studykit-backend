@@ -128,6 +128,18 @@ class CoursesController < ApplicationController
     head :no_content
   end
 
+  api!
+  example '
+  {
+    "data": "Вы успешно записаны на курс"
+  }
+  '
+  example '
+  {
+    "errors": "Невозможно записаться на курс"
+  }
+  '
+  error code: 422, desc: 'Could not join course'
   def join
     success = current_user.try_join_course @course
 
