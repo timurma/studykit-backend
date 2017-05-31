@@ -136,9 +136,21 @@ class CoursesController < ApplicationController
   '
   example '
   {
+    "errors": "Необходимо войти на сайт"
+  }
+  '
+  example '
+  {
+    "errors": "Невозможно найти указанный курс"
+  }
+  '
+  example '
+  {
     "errors": "Невозможно записаться на курс"
   }
   '
+  error code: 401, desc: 'Authorization token not provided or invalid'
+  error code: 404, desc: 'Could not find specified course'
   error code: 422, desc: 'Could not join course'
   def join
     success = current_user.try_join_course @course
