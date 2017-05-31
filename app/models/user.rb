@@ -47,4 +47,8 @@ class User < ApplicationRecord
     payload = { user_id: id, exp: exp }
     JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
   end
+
+  def try_join_course(course)
+    UserGroup.new(user: self, group: course.group).save
+  end
 end

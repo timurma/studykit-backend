@@ -27,5 +27,6 @@ module Studykit
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.middleware.use Rack::MethodOverride
+    config.i18n.default_locale = :ru
   end
 end

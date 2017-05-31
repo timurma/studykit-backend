@@ -9,7 +9,10 @@ Rails.application.routes.draw do
 
     resources :articles, only: %i(index show)
     resources :sql_solutions, only: %i(show create)
-    resources :courses
+    resources :courses do
+      post 'join', on: :member
+      delete 'leave', on: :member
+    end
     resources :lectures, only: %i(index show) do
       resources :lecture_contents, only: %i(show create update destroy), path: 'content'
     end
