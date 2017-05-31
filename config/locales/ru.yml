@@ -3,4 +3,3 @@ ru:
     join:
       success: "Вы успешно записаны на курс"
       fail: "Невозможно записаться на курс"
-  hello: "Hello world"

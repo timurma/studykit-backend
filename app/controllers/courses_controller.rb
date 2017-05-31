@@ -2,8 +2,8 @@ class CoursesController < ApplicationController
   has_scope :owned_by, only: :index
   has_scope :participated_by, only: :index
 
-  before_action :set_course, only: %i(show update destroy join leave)
-  before_action :authenticate_with_token!, only: %i(create update destroy join leave)
+  before_action :set_course, only: %i(show update destroy join)
+  before_action :authenticate_with_token!, only: %i(create update destroy join)
 
   def_param_group :course do
     param :course, Hash do
@@ -136,10 +136,6 @@ class CoursesController < ApplicationController
     else
       render json: { errors: I18n.t('courses.join.fail') }, status: :unprocessable_entity
     end
-  end
-
-  def leave
-
   end
 
   private
