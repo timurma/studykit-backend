@@ -1,4 +1,14 @@
 ru:
+  exceptions:
+    unauthorized: "Необходимо войти на сайт"
+    forbidden: "У вас нет прав для совершения этого действия"
+  activerecord:
+    exceptions:
+      not_found: "Невозможно найти указанный %{klass}"
+    models:
+      course:
+        one: Курс
+        other: Курсы
   courses:
     join:
       success: "Вы успешно записаны на курс"

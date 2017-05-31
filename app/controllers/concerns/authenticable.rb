@@ -10,10 +10,16 @@ module Authenticable
   end
 
   def authenticate_with_token!
-    render json: { errors: 'Not authenticated' }, status: :unauthorized unless current_user
+    unless current_user
+      render json: { errors: I18n.t('exceptions.unauthorized') },
+             status: :unauthorized
+     end
   end
 
   def reject_non_admins!
-    render json: { errors: 'Forbidden' }, status: :forbidden unless current_user&.admin?
+    unless current_user&.admin?
+      render json: { errors: I18n.t('exceptions.forbidden') },
+             status: :forbidden
+    end
   end
 end
