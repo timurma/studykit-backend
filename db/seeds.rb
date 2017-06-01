@@ -34,5 +34,4 @@ if WikidataItem.count == 0
       { name: 'Database Trigger',                   wikidata_id: 'Q835769'   }
     ]
   )
-
 end
