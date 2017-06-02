@@ -151,7 +151,7 @@ GEM
     oj (2.18.5)
     oj_mimic_json (1.0.1)
     pg (0.20.0)
-    puma (3.8.2)
+    puma (3.9.0)
     rack (2.0.3)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
