@@ -54,7 +54,7 @@ class SessionsController < ApplicationController
     if user
       if user.password == login_params[:password]
         token = user.issue_token
-        render json: user, jwt_token: token
+        render json: user, jwt_token: token, host: request.base_url
       else
         render json: { errors: 'Incorrect password' }, status: :unauthorized
       end
