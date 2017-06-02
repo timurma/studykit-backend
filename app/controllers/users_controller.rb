@@ -46,12 +46,13 @@ class UsersController < ApplicationController
     }
   }
   {
-    "id": 8,
+    "id": 3,
     "first_name": "tim",
     "last_name": "plat",
     "email": "qwe",
     "avatar": null,
-    "role": "student"
+    "role": "student",
+    "jwt_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE0OTI1MzU5MjV9.LlADZ2zGNu8wfeN8w0Y8bC6Xby_YUh4KVo1CnPTo_Nc"
   }
   '
   example '
@@ -85,7 +86,8 @@ class UsersController < ApplicationController
     user = User.new user_params
 
     if user.save
-      render json: user, status: :created, host: request.base_url
+      token = user.issue_token
+      render json: user, status: :created, jwt_token: token, host: request.base_url
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
