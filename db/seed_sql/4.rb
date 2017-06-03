@@ -55,7 +55,7 @@ description = <<-TEXT
 TEXT
 
 problem_content = SqlProblemContent.create!(
-  lecture_id: 1,
+  lecture: Lecture.find_by!(title: 'DDL в действии'),
   serial_number: SqlProblemContent.count + 1,
   title: 'Создание столбца - внешнего ключа',
   body: description,

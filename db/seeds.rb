@@ -1,5 +1,5 @@
 if User.find_by(email: 'admin').nil?
-  User.create(
+  User.create!(
     first_name: 'Тимур',
     last_name: 'Платонов',
     email: 'admin',
@@ -9,7 +9,7 @@ if User.find_by(email: 'admin').nil?
 end
 
 if WikidataItem.count == 0
-  WikidataItem.create(
+  WikidataItem.create!(
     [
       { name: 'Database index',                     wikidata_id: 'Q580427'   },
       { name: 'SELECT',                             wikidata_id: 'Q1164001'  },
@@ -32,6 +32,22 @@ if WikidataItem.count == 0
       { name: 'Database Transaction',               wikidata_id: 'Q848010'   },
       { name: 'Aggregate Function',                 wikidata_id: 'Q4115063'  },
       { name: 'Database Trigger',                   wikidata_id: 'Q835769'   }
+    ]
+  )
+end
+
+if Course.count == 0
+  c = Course.create!(
+    title: 'Базы данных',
+    description: 'На этом курсе можно пройти тесты по БД PostgreSQL',
+    owner: User.find_by!(email: 'admin')
+  )
+
+  Lecture.create!(
+    [
+      { title: 'DDL в действии',   serial_number: 1, course: c },
+      { title: 'Немного DML',      serial_number: 2, course: c },
+      { title: 'Для самых крутых', serial_number: 3, course: c }
     ]
   )
 end

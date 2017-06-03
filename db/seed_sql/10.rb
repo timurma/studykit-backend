@@ -37,7 +37,7 @@ description = <<-TEXT
 TEXT
 
 problem_content = SqlProblemContent.create!(
-  lecture_id: 1,
+  lecture: Lecture.find_by!(title: 'Немного DML'),
   serial_number: SqlProblemContent.count + 1,
   title: 'Обновление в транзакции',
   body: description,

@@ -56,7 +56,7 @@ description = <<-TEXT
 TEXT
 
 problem_content = SqlProblemContent.create!(
-  lecture_id: 1,
+  lecture: Lecture.find_by!(title: 'Для самых крутых'),
   serial_number: SqlProblemContent.count + 1,
   title: 'Числа Фибоначчи на SQL',
   body: description,
