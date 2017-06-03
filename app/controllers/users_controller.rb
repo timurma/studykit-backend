@@ -162,7 +162,6 @@ class UsersController < ApplicationController
                                  :last_name,
                                  :email,
                                  :password,
-                                 :avatar,
-                                 :role)
+                                 :avatar)
   end
 end
