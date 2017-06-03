@@ -2,8 +2,8 @@ class CoursesController < ApplicationController
   has_scope :owned_by, only: :index
   has_scope :participated_by, only: :index
 
-  before_action :set_course, only: %i(show update destroy join)
-  before_action :authenticate_with_token!, only: %i(create update destroy join)
+  before_action :set_course, only: %i(show update destroy join leave participating)
+  before_action :authenticate_with_token!, only: %i(create update destroy join leave participating)
 
   def_param_group :course do
     param :course, Hash do
@@ -160,6 +160,28 @@ class CoursesController < ApplicationController
     else
       render json: { errors: I18n.t('courses.join.fail') }, status: :unprocessable_entity
     end
+  end
+
+  def leave
+
+  end
+
+  api!
+  example '
+  {
+    "errors": "Необходимо войти на сайт"
+  }
+  '
+  example '
+  {
+    "errors": "Невозможно найти указанный курс"
+  }
+  '
+  error code: 401, desc: 'Authorization token not provided or invalid'
+  error code: 404, desc: 'Could not find specified course'
+  def participating
+    participating = current_user.participate_in? @course
+    render json: { participating: participating }
   end
 
   private

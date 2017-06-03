@@ -24,4 +24,20 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test 'should render true for participating user' do
+    create(:user_group, user: @user, group: @course.group)
+
+    get participating_course_url(@course), headers: { 'Authorization' => @token }
+
+    assert_response :ok
+    assert json_body[:participating] == true
+  end
+
+  test 'should render false for not participating user' do
+    get participating_course_url(@course), headers: { 'Authorization' => @token }
+
+    assert_response :ok
+    assert json_body[:participating] == false
+  end
 end

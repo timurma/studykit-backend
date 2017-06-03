@@ -51,4 +51,8 @@ class User < ApplicationRecord
   def try_join_course(course)
     UserGroup.new(user: self, group: course.group).save
   end
+
+  def participate_in?(course)
+    UserGroup.find_by(user: self, group: course.group).present?
+  end
 end
