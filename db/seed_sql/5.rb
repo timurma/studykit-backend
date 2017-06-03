@@ -51,7 +51,7 @@ TEXT
 problem_content = SqlProblemContent.create!(
   lecture_id: 1,
   serial_number: SqlProblemContent.count + 1,
-  title: 'Создание столбца - внешнего ключа',
+  title: 'Индекс на столбец',
   body: description,
   sql_problem: sql_problem
 )
