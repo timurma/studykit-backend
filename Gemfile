@@ -23,6 +23,7 @@ gem 'oj', '~> 2.18'
 gem 'oj_mimic_json', '~> 1.0'
 gem 'rails-i18n', '~> 5.0.0'
 gem 'rails_admin', '1.1.0'
+gem 'rails_admin-i18n', '~> 1.11'
 gem 'sneakers', '~> 2.5'
 
 group :development, :test do
