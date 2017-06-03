@@ -52,6 +52,13 @@ class User < ApplicationRecord
     UserGroup.new(user: self, group: course.group).save
   end
 
+  def try_leave_course(course)
+    user_group = UserGroup.find_by(user: self, group: course.group)
+    return false if user_group.blank?
+    user_group.destroy
+    user_group.destroyed?
+  end
+
   def participate_in?(course)
     UserGroup.find_by(user: self, group: course.group).present?
   end

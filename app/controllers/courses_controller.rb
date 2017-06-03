@@ -162,8 +162,38 @@ class CoursesController < ApplicationController
     end
   end
 
+  api!
+  example '
+  {
+    "data": "Вы успешно отписаны от курса"
+  }
+  '
+  example '
+  {
+    "errors": "Необходимо войти на сайт"
+  }
+  '
+  example '
+  {
+    "errors": "Невозможно найти указанный курс"
+  }
+  '
+  example '
+  {
+    "errors": "Невозможно отписаться от курса"
+  }
+  '
+  error code: 401, desc: 'Authorization token not provided or invalid'
+  error code: 404, desc: 'Could not find specified course'
+  error code: 422, desc: 'Could not leave course'
   def leave
+    success = current_user.try_leave_course @course
 
+    if success
+      render json: { data: I18n.t('courses.leave.success') }
+    else
+      render json: { errors: I18n.t('courses.leave.fail') }, status: :unprocessable_entity
+    end
   end
 
   api!

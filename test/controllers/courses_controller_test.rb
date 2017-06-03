@@ -25,6 +25,24 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+  test 'user should leave course' do
+    create(:user_group, user: @user, group: @course.group)
+
+    assert_difference('UserGroup.count', -1) do
+      delete leave_course_url(@course), headers: { 'Authorization' => @token }
+    end
+
+    assert_response :ok
+  end
+
+  test 'user should not leave non-participating course' do
+    assert_no_difference('UserGroup.count') do
+      delete leave_course_url(@course), headers: { 'Authorization' => @token }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test 'should render true for participating user' do
     create(:user_group, user: @user, group: @course.group)
 
