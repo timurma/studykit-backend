@@ -169,6 +169,11 @@ class CoursesController < ApplicationController
   api!
   example '
   {
+    "participating": true
+  }
+  '
+  example '
+  {
     "errors": "Необходимо войти на сайт"
   }
   '
