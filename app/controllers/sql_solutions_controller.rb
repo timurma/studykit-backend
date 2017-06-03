@@ -31,6 +31,7 @@ class SqlSolutionsController < ApplicationController
   error code: 401
   error code: 404
   def show
+    authorize!(:read, @sql_solution)
     render json: @sql_solution
   end
 

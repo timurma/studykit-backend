@@ -31,7 +31,11 @@ class UsersController < ApplicationController
   '
   error code: 404, desc: 'User not found'
   def show
-    render json: @user, host: request.base_url
+    if current_user == @user
+      render json: @user, host: request.base_url
+    else
+      render json: { errors: 'You can view only your own account' }, status: :forbidden
+    end
   end
 
   api!
@@ -122,10 +126,14 @@ class UsersController < ApplicationController
   error code: 400, desc: 'Invalid user params'
   error code: 422, desc: 'Invalid user params'
   def update
-    if @user.update(user_params)
-      render json: @user, host: request.base_url
+    if current_user == @user
+      if @user.update(user_params)
+        render json: @user, host: request.base_url
+      else
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      end
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: 'You can update only your own account' }, status: :forbidden
     end
   end
 
