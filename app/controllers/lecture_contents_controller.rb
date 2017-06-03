@@ -36,7 +36,7 @@ class LectureContentsController < ApplicationController
   }
   '
   def show
-    render json: @lecture_content.specific
+    render json: @lecture_content.specific, user_id: current_user.id
   end
 
   api!
