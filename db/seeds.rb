@@ -45,9 +45,10 @@ if Course.count == 0
 
   Lecture.create!(
     [
-      { title: 'DDL в действии',   serial_number: 1, course: c },
-      { title: 'Немного DML',      serial_number: 2, course: c },
-      { title: 'Для самых крутых', serial_number: 3, course: c }
+      { title: 'Введение',         serial_number: 1, course: c },
+      { title: 'DDL в действии',   serial_number: 2, course: c },
+      { title: 'Немного DML',      serial_number: 3, course: c },
+      { title: 'Для самых крутых', serial_number: 4, course: c }
     ]
   )
 end
