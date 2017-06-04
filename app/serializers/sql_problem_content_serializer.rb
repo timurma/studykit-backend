@@ -1,5 +1,5 @@
 class SqlProblemContentSerializer < LectureContentSerializer
-  attributes :body, :title, :sql_problem_id, :sql_solutions
+  attributes :body, :title, :sql_problem_id, :sql_solutions, :succeed
 
   def sql_solutions
     if user_id.present?
@@ -8,6 +8,13 @@ class SqlProblemContentSerializer < LectureContentSerializer
                                                         each_serializer: SqlSolutionSerializer)
     else
       []
+    end
+  end
+
+  def succeed
+    # TODO: remove this fucking shit
+    if current_user
+      object.sql_solutions.where(user_id: current_user.id).any?(&:succeed)
     end
   end
 
