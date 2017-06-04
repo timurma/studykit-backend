@@ -36,6 +36,7 @@ class LectureContentsController < ApplicationController
   }
   '
   def show
+    authorize!(:read, @lecture_content)
     render json: @lecture_content.specific, user_id: current_user.id
   end
 
