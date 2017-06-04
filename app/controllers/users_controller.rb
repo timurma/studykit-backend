@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     "errors": "Couldn\'t find User with \'id\'=2"
   }
   '
+  error code: 403, desc: 'Can view only your own account'
   error code: 404, desc: 'User not found'
   def show
     if current_user == @user

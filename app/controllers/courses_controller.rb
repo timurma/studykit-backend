@@ -2,8 +2,9 @@ class CoursesController < ApplicationController
   has_scope :owned_by, only: :index
   has_scope :participated_by, only: :index
 
-  before_action :set_course, only: %i(show update destroy join leave participating)
-  before_action :authenticate_with_token!, only: %i(create update destroy join leave participating)
+  before_action :set_course, only: %i(show update destroy join leave participating statistics)
+  before_action :authenticate_with_token!, only: %i(create update destroy join leave participating statistics)
+  before_action :set_user, only: %i(statistics)
 
   def_param_group :course do
     param :course, Hash do
@@ -225,6 +226,38 @@ class CoursesController < ApplicationController
     render json: { participating: participating }
   end
 
+  api!
+  example '
+  {
+    "data": {
+      "solved_problems": 5,
+      "problems": 13
+    }
+  }
+  '
+  example '
+  {
+    "errors": "Необходимо войти на сайт"
+  }
+  '
+  example '
+  {
+    "errors": "Невозможно найти указанный курс"
+  }
+  '
+  error code: 401, desc: 'Authorization token not provided or invalid'
+  error code: 403, desc: 'Cannot show other user statistics'
+  error code: 404, desc: 'Could not find specified course'
+  error code: 404, desc: 'Could not find specified user'
+  def statistics
+    if current_user == @user
+      data = CourseStatisticsCounter.new(@course, @user).call
+      render json: { data: data }
+    else
+      render json: { errors: I18n.t('courses.statistics.forbidden') }, status: :forbidden
+    end
+  end
+
   private
 
   def set_course
@@ -233,5 +266,9 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:title, :description, :avatar)
+  end
+
+  def set_user
+    @user = User.find params[:user_id]
   end
 end

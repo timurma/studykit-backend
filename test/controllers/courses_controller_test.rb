@@ -58,4 +58,16 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
     assert json_body[:participating] == false
   end
+
+  test 'should render user statistics for course' do
+    get "/api/courses/#{@course.id}/participants/#{@user.id}/statistics", headers: { 'Authorization' => @token }
+
+    assert_response :ok
+    assert json_body[:data].present?
+  end
+
+  test 'should not render other user statistics for course' do
+    get "/api/courses/#{@course.id}/participants/#{@user.id + 1}/statistics", headers: { 'Authorization' => @token }
+    assert_response :forbidden
+  end
 end

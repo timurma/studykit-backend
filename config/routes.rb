@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post 'join', on: :member
       delete 'leave', on: :member
       get 'participating', on: :member
+      get 'participants/:user_id/statistics', on: :member, to: 'courses#statistics'
     end
     resources :lectures, only: %i(index show) do
       resources :lecture_contents, only: %i(show create update destroy), path: 'content'
