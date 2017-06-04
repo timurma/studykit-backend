@@ -26,9 +26,19 @@ sql_problem = SqlProblem.create!(
 )
 
 description = <<-TEXT
-  В схеме, по которой мы будем работать, пассажиры явным образом не указаны.
-  Создайте таблицу пассажиров **passengers** с теми же полями пассажиров, что есть сейчас в таблице **tickets**.
-  Не забудьте про первичный ключ - **id** - с автоинкрементом.
+В схеме, по которой мы будем работать, пассажиры явным образом не указаны. Создайте таблицу пассажиров **passengers** с теми же полями пассажиров, что есть сейчас в таблице **tickets**.
+
+```
+  CREATE TABLE tickets (
+    ticket_no CHAR(13) NOT NULL PRIMARY KEY,
+    book_ref CHAR(6) NOT NULL,
+    passenger_id VARCHAR(20) NOT NULL,
+    passenger_name TEXT NOT NULL,
+    contact_data JSONB
+  );
+```
+
+Не забудьте про первичный ключ - **id** - с автоинкрементом.
 TEXT
 
 problem_content = SqlProblemContent.create!(
