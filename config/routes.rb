@@ -23,6 +23,6 @@ Rails.application.routes.draw do
     end
   end
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  apipie
+  mount RailsAdmin::Engine => '/aaaaaadmiin', as: 'rails_admin'
+  # apipie
 end
