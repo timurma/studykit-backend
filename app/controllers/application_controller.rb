@@ -11,15 +11,15 @@ class ApplicationController < ActionController::API
   def render_not_found(error)
     klass_s = error.message.match(/Couldn't find (.+) with/).try(:[], 1)
     klass = klass_s.constantize.model_name.human.mb_chars.downcase.to_s if klass_s
-    render json: { errors: I18n.t('activerecord.exceptions.not_found', klass: klass) },
+    render json: { errors: [I18n.t('activerecord.exceptions.not_found', klass: klass)] },
            status: :not_found
   end
 
-  def render_forbidden(error)
-    render json: { errors: error }, status: :forbidden
+  def render_forbidden(_error)
+    render json: { errors: [I18n.t('exceptions.forbidden')] }, status: :forbidden
   end
 
   def render_bad_request(error)
-    render json: { errors: error }, status: :bad_request
+    render json: { errors: [error] }, status: :bad_request
   end
 end

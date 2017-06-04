@@ -237,12 +237,12 @@ class CoursesController < ApplicationController
   '
   example '
   {
-    "errors": "Необходимо войти на сайт"
+    "errors": ["Необходимо войти на сайт"]
   }
   '
   example '
   {
-    "errors": "Невозможно найти указанный курс"
+    "errors": ["Невозможно найти указанный курс"]
   }
   '
   error code: 401, desc: 'Authorization token not provided or invalid'
@@ -254,7 +254,7 @@ class CoursesController < ApplicationController
       data = CourseStatisticsCounter.new(@course, @user).call
       render json: { data: data }
     else
-      render json: { errors: I18n.t('courses.statistics.forbidden') }, status: :forbidden
+      render json: { errors: [I18n.t('exceptions.forbidden')] }, status: :forbidden
     end
   end
 

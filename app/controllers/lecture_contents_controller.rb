@@ -35,6 +35,7 @@ class LectureContentsController < ApplicationController
     ]
   }
   '
+  error code: 403, desc: 'User does not have access to read lecture content (ex: non-participating in it\'s course)'
   def show
     authorize!(:read, @lecture_content)
     render json: @lecture_content.specific, user_id: current_user.id
