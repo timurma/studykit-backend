@@ -4,6 +4,6 @@ class LectureSerializer < ActiveModel::Serializer
   def content
     collection = object.content.order(:serial_number).map(&:specific)
     ActiveModel::Serializer::CollectionSerializer.new(collection,
-                                                      serializer: LectureContentSerializer)
+                                                      each_serializer: LectureContentSerializer)
   end
 end
