@@ -1,5 +1,7 @@
 class CourseSerializer < ActiveModel::Serializer
   belongs_to :owner
+
+  # TODO: remove god-like course object, which includes lectures, lecture_contents and etc.
   has_many :lectures
 
   attributes :id, :title, :description, :avatar, :owner, :created_at

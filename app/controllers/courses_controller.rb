@@ -214,6 +214,7 @@ class CoursesController < ApplicationController
   '
   error code: 401, desc: 'Authorization token not provided or invalid'
   error code: 404, desc: 'Could not find specified course'
+  # TODO: is it true REST way ?
   def participating
     participating = current_user.participate_in? @course
     render json: { participating: participating }
