@@ -11,7 +11,7 @@
 ## Запуск Sneakers Worker
 
 Для обмена сообщениями между *executor* и *backend* нужно выполнить:
-```WORKERS=SolutionUpdater bundle exec rake sneakers:run```
+```WORKERS=SolutionUpdater RAILS_ENV=production bundle exec rake sneakers:run```
 
 
 ## ImageMagick для конвертации картинок
