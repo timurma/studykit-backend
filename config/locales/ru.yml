@@ -7,8 +7,15 @@ ru:
       not_found: "Невозможно найти указанный %{klass}"
     models:
       course:
-        one: Курс
-        other: Курсы
+        one: "Курс"
+        other: "Курсы"
+      sql_solution:
+        one: "Решение"
+        other: "Решения"
+    attributes:
+      sql_solution:
+        code: "Код решения"
+        sql_problem: "SQL-задание"
   courses:
     join:
       success: "Вы успешно подписаны на курс"
