@@ -22,9 +22,10 @@ class CoursesController < ApplicationController
     courses = apply_scopes(Course).order(updated_at: :desc)
     serialized_courses = ActiveModel::Serializer::CollectionSerializer.new(
       courses,
-      serializer: BaseCourseSerializer
+      serializer: BaseCourseSerializer,
+      host: request.base_url
     )
-    render json: serialized_courses, host: request.base_url
+    render json: serialized_courses
   end
 
   def show
