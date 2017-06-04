@@ -5,7 +5,7 @@ class SqlProblemContentSerializer < LectureContentSerializer
     if user_id.present?
       collection = object.sql_solutions.where(user_id: user_id)
       ActiveModel::Serializer::CollectionSerializer.new(collection,
-                                                        each_serializer: SqlSolutionSerializer)
+                                                        serializer: SqlSolutionSerializer)
     else
       []
     end

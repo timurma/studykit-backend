@@ -19,8 +19,12 @@ class CoursesController < ApplicationController
   example '/courses?owned_by=1'
   example '/courses?owned_by=1&participated_by=5'
   def index
-    @courses = apply_scopes(Course).includes(:owner, :lectures)
-    render json: @courses.order(updated_at: :desc), host: request.base_url
+    courses = apply_scopes(Course).order(updated_at: :desc)
+    serialized_courses = ActiveModel::Serializer::CollectionSerializer.new(
+      courses,
+      serializer: BaseCourseSerializer
+    )
+    render json: serialized_courses, host: request.base_url
   end
 
   def show

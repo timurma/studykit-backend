@@ -1,16 +1,10 @@
-class CourseSerializer < ActiveModel::Serializer
+class CourseSerializer < BaseCourseSerializer
   belongs_to :owner
 
   # TODO: remove god-like course object, which includes lectures, lecture_contents and etc.
-  has_many :lectures
+  attributes :owner, :lectures
 
-  attributes :id, :title, :description, :avatar, :owner, :created_at
-
-  def avatar
-    "#{instance_options[:host]}#{object.avatar.url}" if object.avatar?
-  end
-
-  def created_at
-    object.created_at.to_s(:db)
+  def lectures
+    object.lectures.order(:serial_number)
   end
 end
