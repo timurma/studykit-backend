@@ -30,7 +30,14 @@ class CoursesController < ApplicationController
   end
 
   def show
-    render json: @course, host: request.base_url
+    # TODO: god damn why ??
+    solved_ids = []
+    if current_user
+      succeed_ids = current_user.sql_solutions.where(succeed: true).map(&:sql_problem_id)
+      contents = SqlProblemContent.where(id: succeed_ids)
+      solved_ids = contents.map(&:id)
+    end
+    render json: @course, host: request.base_url, solved_ids: solved_ids
   end
 
   api!

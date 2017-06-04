@@ -6,4 +6,15 @@ class CourseSerializer < BaseCourseSerializer
   def lectures
     object.lectures.order(:serial_number)
   end
+
+  # TODO: remove this shit
+  attribute :solved_ids, if: :solved_ids?
+
+  def solved_ids
+    instance_options[:solved_ids]
+  end
+
+  def solved_ids?
+    !solved_ids.nil?
+  end
 end
