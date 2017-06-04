@@ -50,8 +50,17 @@ sql_problem = SqlProblem.create!(
 )
 
 description = <<-TEXT
-  Отлично! Теперь надо перенести данные пассажиров из таблицы **tickets** в таблицу **passengers**.
-  Понятно, что данные будут с дубликатами, но об этом мы позаботимся чуть позже.
+Отлично! Теперь надо перенести данные пассажиров из таблицы **tickets** в таблицу **passengers**. Понятно, что данные будут с дубликатами, но об этом мы позаботимся чуть позже.
+
+```
+  CREATE TABLE tickets (
+    ticket_no CHAR(13) NOT NULL PRIMARY KEY,
+    book_ref CHAR(6) NOT NULL,
+    passenger_id VARCHAR(20) NOT NULL,
+    passenger_name TEXT NOT NULL,
+    contact_data JSONB
+  );
+```
 TEXT
 
 problem_content = SqlProblemContent.create!(
