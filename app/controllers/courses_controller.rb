@@ -35,7 +35,7 @@ class CoursesController < ApplicationController
     if current_user
       succeed_ids = current_user.sql_solutions.where(succeed: true).map(&:sql_problem_id)
       contents = SqlProblemContent.where(id: succeed_ids)
-      solved_ids = contents.map(&:id)
+      solved_ids = contents.map { |c| c.acting_as.id }
     end
     render json: @course, host: request.base_url, solved_ids: solved_ids
   end
