@@ -38,7 +38,7 @@ description = <<-TEXT
   );
 ```
 
-Таким образом, таблица должна иметь поля **id** (в PostgreSQL есть специальный тип для полей с автоинкрементом), **passport_number**, **name** и **contact_data**; именно в таком порядке.
+Таким образом, таблица должна иметь столбцы **id** (в PostgreSQL есть специальный тип для столбцов с автоинкрементом), **passport_number**, **name** и **contact_data**; именно в таком порядке.
 TEXT
 
 problem_content = SqlProblemContent.create!(
