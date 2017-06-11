@@ -77,6 +77,8 @@ city            flights
 Санкт-Петербург 64
 Новосибирск     36
 ```
+
+Примечание. Оператор **OVERLAPS** не поддерживается. **timestamp with time zone** приводится к **DATE** автоматически, самому приводить типы не надо.
 TEXT
 
 problem_content = SqlProblemContent.create!(
