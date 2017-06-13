@@ -61,6 +61,10 @@ WikidataItemsToLectureContent.create!(
       lecture_content: problem_content.acting_as,
       wikidata_item: WikidataItem.find_by!(name: 'Database index'),
       priority: 1
+    },
+    {
+      lecture_content: problem_content.acting_as,
+      wikidata_item: WikidataItem.find_by!(name: 'CREATE')
     }
   ]
 )
