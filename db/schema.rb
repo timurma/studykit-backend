@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518051725) do
+ActiveRecord::Schema.define(version: 20170603154312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,8 +85,9 @@ ActiveRecord::Schema.define(version: 20170518051725) do
     t.string   "initial_code"
     t.string   "solution_code"
     t.string   "check_function"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "executable",     default: true
   end
 
   create_table "sql_solutions", force: :cascade do |t|
@@ -120,15 +121,30 @@ ActiveRecord::Schema.define(version: 20170518051725) do
     t.string "url"
   end
 
-  add_foreign_key "course_categories", "categories"
-  add_foreign_key "course_categories", "courses"
-  add_foreign_key "courses", "users", column: "owner_id"
-  add_foreign_key "groups", "courses"
-  add_foreign_key "lecture_contents", "lectures"
-  add_foreign_key "lectures", "courses"
-  add_foreign_key "sql_problem_contents", "sql_problems"
-  add_foreign_key "sql_solutions", "sql_problems"
-  add_foreign_key "sql_solutions", "users"
-  add_foreign_key "user_groups", "groups"
-  add_foreign_key "user_groups", "users"
+  create_table "wikidata_items", force: :cascade do |t|
+    t.string   "name"
+    t.string   "wikidata_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "wikidata_items_to_lecture_contents", force: :cascade do |t|
+    t.integer "wikidata_item_id"
+    t.integer "lecture_content_id"
+    t.integer "priority"
+  end
+
+  add_foreign_key "course_categories", "categories", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "course_categories", "courses", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "courses", "users", column: "owner_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "groups", "courses", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "lecture_contents", "lectures", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "lectures", "courses", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "sql_problem_contents", "sql_problems", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "sql_solutions", "sql_problems", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "sql_solutions", "users", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "user_groups", "groups", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "user_groups", "users", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "wikidata_items_to_lecture_contents", "lecture_contents", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "wikidata_items_to_lecture_contents", "wikidata_items", on_update: :cascade, on_delete: :nullify
 end

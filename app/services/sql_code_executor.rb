@@ -1,5 +1,5 @@
 class SqlCodeExecutor
-  attr_accessor :execution_params
+  attr_accessor :execution_params, :executable
 
   def initialize(sql_solution)
     sql_problem = sql_solution.sql_problem
@@ -12,9 +12,12 @@ class SqlCodeExecutor
     }
     json_params = sql_params.to_json
     self.execution_params = json_params
+    self.executable = sql_problem.executable?
   end
 
   def call
+    return unless executable
+
     # publish a message to the default exchange which then gets routed to this queue
     # persistent - save message to the disk
     queue.publish(execution_params, persistent: true)

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(show update destroy)
 
   def_param_group :user do
-    param :user, Hash do
+    param :user, Hash, required: true do
       param :first_name, String, required: true
       param :last_name, String, required: true
       param :email, String, required: true
@@ -29,9 +29,14 @@ class UsersController < ApplicationController
     "errors": "Couldn\'t find User with \'id\'=2"
   }
   '
+  error code: 403, desc: 'Can view only your own account'
   error code: 404, desc: 'User not found'
   def show
-    render json: @user, host: request.base_url
+    if current_user == @user
+      render json: @user, host: request.base_url
+    else
+      render json: { errors: 'You can view only your own account' }, status: :forbidden
+    end
   end
 
   api!
@@ -46,12 +51,13 @@ class UsersController < ApplicationController
     }
   }
   {
-    "id": 8,
+    "id": 3,
     "first_name": "tim",
     "last_name": "plat",
     "email": "qwe",
     "avatar": null,
-    "role": "student"
+    "role": "student",
+    "jwt_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE0OTI1MzU5MjV9.LlADZ2zGNu8wfeN8w0Y8bC6Xby_YUh4KVo1CnPTo_Nc"
   }
   '
   example '
@@ -64,24 +70,31 @@ class UsersController < ApplicationController
     }
   }
   {
-    "errors": {
-      "first_name": [
-        "can\'t be blank"
-      ],
-      "email": [
-        "has already been taken"
-      ]
-    }
+    "errors": [
+      "First name can\'t be blank",
+      "Email has already been taken"
+    ]
   }
   '
-  error code: 422, desc: 'Invalid user'
+  example '
+  {
+    "user":{
+    }
+  }
+  {
+    "errors": "param is missing or the value is empty: user"
+  }
+  '
+  error code: 400, desc: 'Null or empty *user* param'
+  error code: 422, desc: 'One or more of the *user* params are invalid'
   def create
     user = User.new user_params
 
     if user.save
-      render json: user, status: :created, host: request.base_url
+      token = user.issue_token
+      render json: user, status: :created, jwt_token: token, host: request.base_url
     else
-      render json: { errors: user.errors }, status: :unprocessable_entity
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -114,10 +127,14 @@ class UsersController < ApplicationController
   error code: 400, desc: 'Invalid user params'
   error code: 422, desc: 'Invalid user params'
   def update
-    if @user.update(user_params)
-      render json: @user, host: request.base_url
+    if current_user == @user
+      if @user.update(user_params)
+        render json: @user, host: request.base_url
+      else
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      end
     else
-      render json: { errors: @user.errors }, status: :unprocessable_entity
+      render json: { errors: 'You can update only your own account' }, status: :forbidden
     end
   end
 
@@ -154,7 +171,6 @@ class UsersController < ApplicationController
                                  :last_name,
                                  :email,
                                  :password,
-                                 :avatar,
-                                 :role)
+                                 :avatar)
   end
 end

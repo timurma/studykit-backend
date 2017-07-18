@@ -11,7 +11,13 @@ class Ability
       can(:manage, Course) { |course| course.owner == user }
       can(:manage, Lecture) { |lecture| lecture.course.owner == user }
       can(:manage, LectureContent) { |lecture_content| lecture_content.lecture.course.owner == user }
+
+      # TODO: check in better way
+      can(:manage, SqlSolution) { |sql_solution| (sql_solution.user.courses & user.owned_courses).size > 0 }
+      can(:read, LectureContent) { |lecture_content| user.participate_in?(lecture_content.lecture.course) }
     elsif user.student?
+      can(:read, SqlSolution) { |sql_solution| sql_solution.user == user }
+      can(:read, LectureContent) { |lecture_content| user.participate_in?(lecture_content.lecture.course) }
     end
     #
     # The first argument to `can` is the action you are giving the user

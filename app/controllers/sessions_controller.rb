@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def_param_group :user do
-    param :user, Hash, desc: 'User login info' do
+    param :user, Hash, desc: 'User login info', required: true do
       param :email, String, desc: 'Email for login', required: true
       param :password, String, desc: 'Password for login', required: true
     end
@@ -28,23 +28,38 @@ class SessionsController < ApplicationController
   example '
   {
     "user": {
-      "email": "tpltn",
+      "email": "",
       "password": "123"
     }
   }
   {
-    "errors": "Invalid credentials"
+    "errors": "User with specified email not found"
   }
   '
-  error code: 404, desc: 'User not found'
+  example '
+  {
+    "user": {
+      "email": "tpltn",
+      "password": null
+  }
+  }
+  {
+    "errors": "Incorrect password"
+  }
+  '
+  error code: 401, desc: 'Incorrect password'
+  error code: 404, desc: 'User with specified credentials not found'
   def create
-    user = User.find_by_email_password(login_params[:email], login_params[:password])
-
+    user = User.find_by_email login_params[:email]
     if user
-      token = user.issue_token
-      render json: user, jwt_token: token
+      if user.password == login_params[:password]
+        token = user.issue_token
+        render json: user, jwt_token: token, host: request.base_url
+      else
+        render json: { errors: 'Incorrect password' }, status: :unauthorized
+      end
     else
-      render json: { errors: 'Invalid credentials' }, status: :not_found
+      render json: { errors: 'User with specified email not found' }, status: :not_found
     end
   end
 

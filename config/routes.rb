@@ -9,7 +9,12 @@ Rails.application.routes.draw do
 
     resources :articles, only: %i(index show)
     resources :sql_solutions, only: %i(show create)
-    resources :courses
+    resources :courses do
+      post 'join', on: :member
+      delete 'leave', on: :member
+      get 'participating', on: :member
+      get 'participants/:user_id/statistics', on: :member, to: 'courses#statistics'
+    end
     resources :lectures, only: %i(index show) do
       resources :lecture_contents, only: %i(show create update destroy), path: 'content'
     end
@@ -18,6 +23,6 @@ Rails.application.routes.draw do
     end
   end
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  apipie
+  mount RailsAdmin::Engine => '/dskjghskdjf', as: 'rails_admin'
+  # apipie
 end

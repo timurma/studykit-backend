@@ -15,9 +15,9 @@ class User < ApplicationRecord
   validates_integrity_of :avatar
   validates_processing_of :avatar
 
-  def self.find_by_email_password(email, password)
-    user = where('LOWER(email) = ?', email.downcase).first
-    return user if user && user.password == password
+  def self.find_by_email(email)
+    return nil if email.nil?
+    find_by('LOWER(email) = ?', email.downcase)
   end
 
   def self.find_by_token(token)
@@ -33,6 +33,11 @@ class User < ApplicationRecord
   end
 
   def password=(new_password)
+    if new_password.blank?
+      self.password_digest = nil
+      return password_digest
+    end
+
     @password = BCrypt::Password.create(new_password)
     self.password_digest = @password
   end
@@ -41,5 +46,20 @@ class User < ApplicationRecord
     exp = 3.months.from_now.to_i
     payload = { user_id: id, exp: exp }
     JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
+  end
+
+  def try_join_course(course)
+    UserGroup.new(user: self, group: course.group).save
+  end
+
+  def try_leave_course(course)
+    user_group = UserGroup.find_by(user: self, group: course.group)
+    return false if user_group.blank?
+    user_group.destroy
+    user_group.destroyed?
+  end
+
+  def participate_in?(course)
+    UserGroup.find_by(user: self, group: course.group).present?
   end
 end
