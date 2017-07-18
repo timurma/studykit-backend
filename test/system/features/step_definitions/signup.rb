@@ -1,21 +1,22 @@
+
+
 Given(/^I am on form sign up$/) do
-  expect(page).to have_selector('#auth-form')
+  expect(page).to have_selector('#signup-form')
 end
 
-Given(/^I type name with "([^"]*)"$/) do |text|
-fill_in(id: 'firstName', with: text)
+And(/^I click button "([^"]*)"$/) do |button_text|
+  click_button button_text
 end
 
-Given(/^I type surname with "([^"]*)"$/) do |text|
-fill_in(id: 'lastName', with: text)
+Given(/^I fill in "([^"]*)" with "([^"]*)"$/) do |name, value|
+  fill_in name, with: value
 end
 
-Then(/^I change login form$/) do
-  find('#auth-change').click
-	sleep 1
+And(/^I click "([^"]*)"$/) do |link_text|
+  click_link(link_text)
 end
 
-Then(/^I sign up$/) do
-  find('#auth-submit').click
-	sleep 1
+Then(/^I see message with text "([^"]*)"$/) do |message_text|
+  expect(page).to have_text(message_text)
 end
+
